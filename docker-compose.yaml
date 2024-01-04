@@ -31,6 +31,19 @@ services:
     networks:
       - node-network
 
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    depends_on:
+      - db
+      - app
+    networks:
+      - node-network
+    ports:
+      - "8080:8080"
+
 networks:
   node-network:
     driver: bridge
