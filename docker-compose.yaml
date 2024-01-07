@@ -25,6 +25,7 @@ services:
     tty: true
     volumes:
       - ./node/mysql/seed:/docker-entrypoint-initdb.d
+      - mysqldata:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
@@ -47,3 +48,7 @@ services:
 networks:
   node-network:
     driver: bridge
+
+volumes:
+  mysqldata:
+    driver: local
