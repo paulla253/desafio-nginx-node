@@ -14,3 +14,5 @@ Gere o docker-compose de uma forma que basta apenas rodarmos: docker-compose up 
 2. Foi utilizado o healthcheck para o node aguardar o banco de dados, em vez do dockerize.
 
 3. Foi criado o volume para o banco de dados, pois não seria criado pastas no diretório e o docker cuidaria desse processo.
+
+4. Documentação do mysql2: https://sidorares.github.io/node-mysql2/docs
