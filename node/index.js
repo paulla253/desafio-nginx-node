@@ -1,4 +1,6 @@
 const express = require("express");
+const mysql = require("mysql2");
+
 const app = express();
 const port = 3000;
 const config = {
@@ -9,8 +11,15 @@ const config = {
 };
 
 app.get("/", async (req, res) => {
-  const mysql = require("mysql");
   const connection = mysql.createConnection(config);
+
+  connection.connect(function (err) {
+    if (err) {
+      console.log(`connectionRequest Failed ${err.stack}`);
+    } else {
+      console.log(`DB connectionRequest Successful ${connection.threadId}`);
+    }
+  });
 
   await insertRegister(connection);
 
@@ -18,14 +27,20 @@ app.get("/", async (req, res) => {
 
   const table = createTable(results);
 
-  res.send("<h1>Full Cycle Rocks!</h1>" + table);
+  res.send("<h1>Full Cycle Rocks b!</h1>" + table);
 
   connection.end();
 });
 
 async function insertRegister(connection) {
   const sql = `INSERT INTO people(name) values('Ana')`;
-  await connection.query(sql);
+
+  connection.query(sql, (err) => {
+    if (err instanceof Error) {
+      console.log(err);
+      return;
+    }
+  });
 }
 
 async function getAll(connection) {
